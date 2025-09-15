@@ -7,7 +7,7 @@
   async function greet(event: Event) {
     event.preventDefault();
     // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-      greetMsg = await invoke('greet', { name: name });
+    greetMsg = await invoke("greet", { name: name });
   }
 </script>
 
@@ -40,13 +40,11 @@
   <div class="w-1/2 bg-stone-900 p-6">
     <div class="max-w-4xl mx-auto">
       <div class="bg-slate-800 rounded-lg p-6 border border-slate-700">
-        <p class="text-gray-300">
-          {#if greetMsg}
-            <div class="mt-4 p-3 bg-slate-700 rounded-lg">
-              <p class="text-green-400">{greetMsg}</p>
-            </div>
-          {/if}
-        </p>
+        {#if greetMsg}
+          <div class="mt-4 p-3 bg-slate-700 rounded-lg">
+            <p class="text-green-400">{greetMsg}</p>
+          </div>
+        {/if}
       </div>
     </div>
   </div>
