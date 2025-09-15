@@ -13,6 +13,7 @@ const config = {
       fallback: "index.html",
     }),
   },
+  preprocess: vitePreprocess(),
 };
 
 export default config;
