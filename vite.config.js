@@ -1,3 +1,4 @@
+import devtoolsJson from "vite-plugin-devtools-json";
 import { defineConfig } from "vite";
 import { sveltekit } from "@sveltejs/kit/vite";
 
@@ -6,8 +7,7 @@ const host = process.env.TAURI_DEV_HOST;
 
 // https://vite.dev/config/
 export default defineConfig(async () => ({
-  plugins: [sveltekit()],
-
+  plugins: [sveltekit(), devtoolsJson()],
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //
   // 1. prevent Vite from obscuring rust errors
@@ -17,16 +17,8 @@ export default defineConfig(async () => ({
     port: 1420,
     strictPort: true,
     host: host || false,
-    hmr: host
-      ? {
-          protocol: "ws",
-          host,
-          port: 1421,
-        }
-      : undefined,
-    watch: {
-      // 3. tell Vite to ignore watching `src-tauri`
-      ignored: ["**/src-tauri/**"],
-    },
-  },
+    hmr: host ? { protocol: "ws", host, port: 1421 } : undefined,
+    watch: { // 3. tell Vite to ignore watching `src-tauri`
+    ignored: ["**/src-tauri/**"] }
+  }
 }));
