@@ -1,6 +1,6 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/core";
-  import { Monitor } from "lucide-svelte";
+  import { CirclePlus, Monitor, Pencil } from "lucide-svelte";
   import { songs, type Song } from "../lib/stores/songs";
 
   let name = $state("");
@@ -35,15 +35,15 @@
     <div>
       <div class="rounded-lg max-h-full overflow-y-auto">
         {#if songSearch}
-          <div class="mt-4 p-3 bg-slate-700 rounded-lg">
+          <div class="mt-4 mb-4 p-3 bg-slate-700 rounded-lg">
             <p class="text-green-400">{songSearch}</p>
           </div>
 
           {#each $songs as song}
             <button
-              class="bg-slate-700 border border-slate-600 rounded-lg shadow-sm cursor-pointer hover:bg-slate-600 transition-colors {songSelected?.title ===
+              class="mb-2 bg-slate-700 border border-slate-600 rounded-lg shadow-sm cursor-pointer hover:bg-slate-600 transition-colors {songSelected?.title ===
               song.title
-                ? 'ring-2 ring-blue-500 bg-slate-600'
+                ? 'ring-2 bg-green-600 hover:bg-green-500'
                 : ''}"
               onclick={() => selectSong(song)}
               aria-label="Select {song.title}"
@@ -94,13 +94,15 @@
           class="bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-800 transition-colors"
           disabled={!songSelected}
         >
+          <Pencil class="inline mr-2" size="16" />
           Edit Song
         </button>
         <button
           type="submit"
           class="bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-800 transition-colors"
         >
-          + Add Song
+          <CirclePlus class="inline mr-2" size="16" />
+          Add Song
         </button>
       </div>
 
@@ -152,70 +154,16 @@
   :global(html) {
     background-color: theme(colors.gray.100);
   }
-  :root {
-    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 400;
-
-    color: #0f0f0f;
-    background-color: #f6f6f6;
-
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
-  }
-
-  input,
-  button {
-    border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    color: #0f0f0f;
-    background-color: #ffffff;
-    transition: border-color 0.25s;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-  }
 
   button {
-    cursor: pointer;
-  }
-
-  button:hover {
-    border-color: #396cd8;
-  }
-  button:active {
-    border-color: #396cd8;
-    background-color: #e8e8e8;
-  }
-
-  input,
-  button {
-    outline: none;
-  }
-
-  #greet-input {
-    margin-right: 5px;
+    padding: 1rem;
+    text-align: left;
+    width: 100%;
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
-      color: #f6f6f6;
       background-color: #2f2f2f;
-    }
-
-    input,
-    button {
-      color: #ffffff;
-      background-color: #0f0f0f98;
-    }
-    button:active {
-      background-color: #0f0f0f69;
     }
   }
 </style>
